@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html ng-app="myPortal" >
+<head>
+    <title>Authenticate</title>    
+    <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+    <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.js"></script>
+    <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.js"></script>
+    <script src="script.js"></script>  
+</head>
+<body>
+        <div ng-controller="CustAuth">
+            <h1>Welcome to the PORTAL</h1>
+            Screen Name:
+            <input type="text" ng-model="screen_name" /><br />
+            Enter PIN#:
+            <input type="password" ng-model="PIN" /><br />
+            <input type="button" value="Login" ng-click="login()" />
+            {{Dbg}} <br />
+            {{token}} <br />
+            <div id="tm"></div>
+        </div>   
+</body>
+</html>

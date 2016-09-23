@@ -1,0 +1,51 @@
+﻿    <!DOCTYPE html>
+    <html ng-app="myCardAcctApp">
+    <head>
+        <title>Card Acct</title>    
+        <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+        <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.js"></script>
+        <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.js"></script>
+        <script type="text/javascript">var timerStart = Date.now();</script>
+        <script src="script.js"></script>
+        <style>
+            table, td {
+                border: 1px solid lightgray;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div ng-controller="CardAcct">            
+            <table>
+                <thead>CARD ACCT APP</thead>
+                <tr ng-repeat="(key, value) in cardacct">
+                    <td>{{key}}</td>
+                    <td ng-hide="{{value | isArray}}">{{value}}</td>
+                    <td ng-show="{{value | isArray}}">
+                        <table ng-repeat="(key1, value1) in value">
+                            <tr>
+                                <td>{{key1+1}}</td>
+                                <td>
+                                    <table ng-repeat="(key2,value2) in value1">
+                                        <tr>
+                                            <td>{{key2}}</td>
+                                            <td ng-hide="{{value2 | isLink}}">{{value2}}</td>
+                                            <td ng-show="{{value2 | isLink}}">
+                                                <a href="{{value2}}">{{value2}}</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>              
+            {{Dbg}} <br />
+            {{token}} <br/>
+            <div id="tm"></div>    
+            </div>
+    </body>
+    </html>
+
