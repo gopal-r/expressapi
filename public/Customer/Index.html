@@ -1,11 +1,10 @@
 ﻿    <!DOCTYPE html>
+    <!--angular app declaration-->
     <html ng-app="myCustApp">
     <head>
         <title>Customer</title>    
         <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
-        <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.js"></script>
         <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.js"></script>
-        <script type="text/javascript">var timerStart = Date.now();</script>
         <script src="script.js"></script>
         <style>
             table, td {
@@ -16,8 +15,10 @@
         </style>
     </head>
     <body>
+        <!--declare angular controller for this view-->
         <div ng-controller="Cust">            
             <table style="width:100%"><tr><td ><table style="width:100%"><thead>CUSTOMER APP</thead>
+        <!--databound html elements for 2 way data binding-->
         <tr ng-repeat="(key, value) in cust">
             <td>{{key}}</td>
             <td ng-hide="{{value | isArray}}">{{value}}</td>
@@ -41,7 +42,9 @@
             </td>
             </tr>
             </table>   
-               </td><td><iframe id="cardframe"  src="../CardAcct/Index.html?indx=0&dt=" ng-src="{{card_url}}" style="border: 0; height:100%;width:100%"></iframe></td></tr></table>                  
+               </td><td><!--Card Account Application assume being served from a different load balancer in same domain-->
+                <!-- Can be improved by loading the URL from env here and in the angular module -->
+                <iframe id="cardframe"  src="../CardAcct/Index.html?indx=0&dt=" ng-src="{{card_url}}" style="border: 0; height:100%;width:100%"></iframe></td></tr></table>                  
             {{Dbg}} <br />
             {{token}} <br/>
             <div id="tm"></div>

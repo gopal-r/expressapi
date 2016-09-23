@@ -1,6 +1,12 @@
 ﻿// Instantiate the app, the 'myCustApp' parameter must match what is in ng-app
-var myCustApp = angular.module('myCustApp', ['ngResource','ngCookies']);
+//myCustApp is an Angular Module
+//module() method -  declaration of the module with args as name of app, dependencies
+var myCustApp = angular.module('myCustApp', ['ngCookies']);
 
+//constant method sets to set up constants and can be used for environment configuration remembering that
+// this has to be abstracted out for easy deployment and only publicly viewable config say publicly available
+// dns, ip, s/b used
+//Dev config
 //Dev config
 myCustApp.constant('ENV_VARS', {
     baseUrl: '/api/',
@@ -15,7 +21,8 @@ myCustApp.config(['$httpProvider', function ($httpProvider) {
 }
 ]);
 
-// Create the controller, the 'CustAuth' parameter must match an ng-controller directive
+// controller is a Module method registers Cust controller with the Module with
+// anonymous contructor function that creates the model ($scope and other dependencies injected to create model) 
 myCustApp.controller('Cust', function ($scope, $location, $window, $cookieStore, $sce, $http, ENV_VARS) {
     $scope.token = $cookieStore.get('tkn');
     $scope.screen_name = $cookieStore.get('sn');
@@ -23,7 +30,8 @@ myCustApp.controller('Cust', function ($scope, $location, $window, $cookieStore,
     var data = { "screen_name": "", "token": "" };
     data.screen_name = $scope.screen_name;
     data.token = $scope.token;
-
+    //call rest api to get customer by posting a token. This could not be get because the token will be compromised.
+    // Issue with Cross Origin Resource Sharing caused me to pivot to a string input instead of JSON
     $http.post(ENV_VARS.baseUrl + ENV_VARS.customerAPI,
         ';;;' + data.screen_name + ';;;' + data.token + ';;;',
     {
@@ -37,7 +45,7 @@ myCustApp.controller('Cust', function ($scope, $location, $window, $cookieStore,
         $scope.Dbg = response;
     });
 
-
+    //register an handler for button ng-click
     $scope.change_src = function (indx) {
         $scope.card_url = $sce.trustAsResourceUrl($location.path() + "/CardAcct/Index.html?indx=" + indx+ "&dt" + Date.now());        
     };

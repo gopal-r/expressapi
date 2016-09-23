@@ -1,11 +1,10 @@
 ﻿    <!DOCTYPE html>
+    <!--angular app declaration-->
     <html ng-app="myCardAcctApp">
     <head>
         <title>Card Acct</title>    
         <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
-        <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.js"></script>
         <script data-semver="1.5.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-cookies.js"></script>
-        <script type="text/javascript">var timerStart = Date.now();</script>
         <script src="script.js"></script>
         <style>
             table, td {
@@ -16,9 +15,11 @@
         </style>
     </head>
     <body>
+        <!--declare angular controller for this view-->
         <div ng-controller="CardAcct">            
             <table>
                 <thead>CARD ACCT APP</thead>
+                <!--databound html elements for 2 way data binding-->
                 <tr ng-repeat="(key, value) in cardacct">
                     <td>{{key}}</td>
                     <td ng-hide="{{value | isArray}}">{{value}}</td>

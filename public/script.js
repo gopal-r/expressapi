@@ -1,6 +1,11 @@
 ﻿// Instantiate the app, the 'myPortal' parameter must match what is in ng-app
-var myPortal = angular.module('myPortal', ['ngResource', 'ngCookies']);
+//myPortal is an Angular Module 
+//module() method -  declaration of the module with args as name of app, dependencies
+var myPortal = angular.module('myPortal', ['ngCookies']);
 
+//constant method sets to set up constants and can be used for environment configuration remembering that
+// this has to be abstracted out for easy deployment and only publicly viewable config say publicly available
+// dns, ip, s/b used
 //Dev config
 myPortal.constant('ENV_VARS', {
     baseUrl: '/api/',
@@ -8,15 +13,19 @@ myPortal.constant('ENV_VARS', {
 });
 //http://localhost:1337/api/ also works
 
+// config method is a module method that registers an anon function 
+// and injects provider objects http provider in this case
 myPortal.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }
 ]);
-// Create the controller, the 'CustAuth' parameter must match an ng-controller directive
-myPortal.controller('CustAuth', function ($scope, $location, $window, $cookieStore, $resource, $http, ENV_VARS) {
+
+// controller is a Module method registers CustAuth controller with the Module with
+// anonymous contructor function that creates the model ($scope and other dependencies injected to create model) 
+myPortal.controller('CustAuth', function ($scope, $location, $window, $cookieStore, $http, ENV_VARS) {
      $scope.login = function () {
-        // Call rest API to verify customer
+  
         if (!$scope.PIN || $scope.PIN === '' || !$scope.screen_name || $scope.screen_name === '')
         { $scope.Dbg = "invld"; }
         else
@@ -24,7 +33,9 @@ myPortal.controller('CustAuth', function ($scope, $location, $window, $cookieSto
             var data = { "screen_name": "", "PIN_hash": "" };
             data.screen_name = $scope.screen_name;
             data.PIN_hash = myHash($scope.PIN);
-           
+
+             // Call rest API to verify customer without waiting but passing a call back;
+            // Issue with Cross Origin Resource Sharing caused me to pivot to a string input instead of JSON
             $http.post(ENV_VARS.baseUrl + ENV_VARS.tokenAPI,
                 ';;;'+ data.screen_name + ';;;' + data.PIN_hash + ';;;',
             {
