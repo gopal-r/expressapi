@@ -1,6 +1,6 @@
 ﻿# Express Api
 
-This app runs a 4 tier micro service on the MEAN stack.
+This app leverages 4 tier micro services on the MEAN stack.
 
 Once the repo is cloned, use the following command from the directory 
 (assuming the nodeJS is installed,
